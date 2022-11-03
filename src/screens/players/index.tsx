@@ -8,10 +8,17 @@ import { Filters } from "../../components/filters";
 import { Alert, FlatList } from "react-native";
 import { PlayersCard } from "../../components/playersCard";
 import { ListEmpyt } from "../../components/listEmpyt";
+import { useRoute } from "@react-navigation/native";
+
+type RouteParams = {
+  groups: string;
+};
 
 export const Players = () => {
   const [team, setTeam] = useState("Team A");
   const [players, setPlayers] = useState([]);
+  const route = useRoute();
+  const { groups } = route.params as RouteParams;
 
   const addPlayers = () => {};
 
@@ -22,10 +29,7 @@ export const Players = () => {
   return (
     <Container>
       <Header showBackButton />
-      <HigthLigth
-        title="Node da turma"
-        text="adicione a galera e separe os times"
-      />
+      <HigthLigth title={groups} text="adicione a galera e separe os times" />
 
       <Form>
         <Input placeholder="Nome da pessoa" autoCorrect={false} />

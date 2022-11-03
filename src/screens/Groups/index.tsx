@@ -5,11 +5,16 @@ import { GroupsCards } from "../../components/groupsCards";
 import { useState } from "react";
 import { ListEmpyt } from "../../components/listEmpyt";
 import { Button } from "../../components/button";
+import { useNavigation } from "@react-navigation/native";
 
 export const Groups = () => {
+  const { navigate } = useNavigation();
+
   const [groups, setGroups] = useState<string[]>([]);
 
-  const teste = () => {};
+  const handleNewGroup = () => {
+    navigate("newGroups");
+  };
 
   return (
     <Container>
@@ -22,7 +27,7 @@ export const Groups = () => {
         <ListEmpyt message="Nenhum Grupo encontrado..." />
       )}
 
-      <Button type="SECONDARY" message="Add Groups" />
+      <Button message="Add Groups" onPress={handleNewGroup} />
     </Container>
   );
 };
