@@ -4,6 +4,7 @@ import { TouchableOpacity } from "react-native";
 export const Container = styled(TouchableOpacity)`
   width: 100%;
   height: 96px;
+  flex: 1;
   flex-direction: row;
   background-color: ${({ theme }) => theme.COLORS.GRAY_500};
   margin-bottom: 12px;

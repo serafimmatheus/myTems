@@ -8,13 +8,30 @@ import { Input } from "../../components/input";
 import { useNavigation } from "@react-navigation/native";
 
 import { Container, Icon, Content } from "./style";
+import { grouCreate } from "../../storage/groups/groupCreate";
+import { AppError } from "../../utils/AppError";
+import { Alert } from "react-native";
 
 export const NewGroups = () => {
   const { navigate } = useNavigation();
   const [nameGroup, setNameGroup] = useState("");
 
-  const handleNewGroups = () => {
-    navigate("players", { groups: nameGroup });
+  const handleNewGroups = async () => {
+    try {
+      if (nameGroup.trim().length === 0) {
+        return Alert.alert("Nova turma", "Adicione um nome válido para turma.");
+      }
+
+      await grouCreate(nameGroup);
+      navigate("players", { groups: nameGroup });
+    } catch (error) {
+      if (error instanceof AppError) {
+        Alert.alert("Nova turma", error.message);
+      } else {
+        Alert.alert("Nova turma", "não foi possível criar a turma.");
+        console.log(error);
+      }
+    }
   };
   return (
     <Container>
@@ -33,7 +50,7 @@ export const NewGroups = () => {
           onChangeText={setNameGroup}
         />
 
-        <Button message="Criar" onPress={handleNewGroups} />
+        <Button message="Criar turma" onPress={handleNewGroups} />
       </Content>
     </Container>
   );
